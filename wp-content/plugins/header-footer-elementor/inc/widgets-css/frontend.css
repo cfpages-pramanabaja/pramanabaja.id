@@ -1,3 +1,120 @@
+/* Counter Widget CSS */
+.hfe-counter-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Default alignments that will be overridden by controls */
+.hfe-counter-wrapper[style*="flex-direction: column"] {
+    align-items: center; /* horizontal alignment for column layouts */
+    justify-content: center; /* vertical alignment for column layouts */
+}
+
+.hfe-counter-wrapper[style*="flex-direction: row"] {
+    justify-content: center; /* horizontal alignment for row layouts */
+    align-items: center; /* vertical alignment for row layouts */
+}
+
+.hfe-counter-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.hfe-counter-number {
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 1;
+}
+
+.hfe-counter-title {
+    font-size: 18px;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.hfe-counter-prefix,
+.hfe-counter-suffix {
+    font-size: inherit;
+    line-height: inherit;
+}
+
+
+
+/* Title styling - flex enabled for alignment controls */
+.hfe-counter-title {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Ensure counter content doesn't shrink */
+.hfe-counter-content {
+    flex-shrink: 0;
+}
+
+/* Equal width distribution for horizontal layouts */
+.hfe-counter-wrapper[style*="flex-direction: row"] .hfe-counter-title,
+.hfe-counter-wrapper[style*="flex-direction: row"] .hfe-counter-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.hfe-counter-wrapper[style*="flex-direction: row-reverse"] .hfe-counter-title,
+.hfe-counter-wrapper[style*="flex-direction: row-reverse"] .hfe-counter-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Alternative approach - apply to all potential horizontal layouts */
+.hfe-counter-wrapper:not([style*="column"]) .hfe-counter-title,
+.hfe-counter-wrapper:not([style*="column"]) .hfe-counter-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Ensure counter content maintains flex display in all layouts */
+.hfe-counter-content {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Responsive equal width distribution */
+@media (max-width: 1024px) {
+    .elementor-widget-hfe-counter .hfe-counter-wrapper[style*="row"] .hfe-counter-title,
+    .elementor-widget-hfe-counter .hfe-counter-wrapper[style*="row"] .hfe-counter-content {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .elementor-widget-hfe-counter .hfe-counter-wrapper[style*="row"] .hfe-counter-title,
+    .elementor-widget-hfe-counter .hfe-counter-wrapper[style*="row"] .hfe-counter-content {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .hfe-counter-number {
+        font-size: 36px;
+    }
+    
+    .hfe-counter-title {
+        font-size: 16px;
+    }
+}
+
 /* Navigation Menu CSS */
 
 ul.hfe-nav-menu,
@@ -24,8 +141,9 @@ ul.hfe-nav-menu,
 .hfe-nav-menu__theme-icon-yes button.sub-menu-toggle {
     display: none;
 }
+
 div.hfe-nav-menu,
-.elementor-widget-hfe-nav-menu .elementor-widget-container {
+.elementor-widget-hfe-nav-menu .elementor-widget-container{
     -js-display: flex;
     display: -webkit-box;
     display: -webkit-flex;
@@ -137,20 +255,20 @@ div.hfe-nav-menu,
           -moz-box-pack: end;
           justify-content: flex-end; }
 
-.hfe-nav-menu__align-right .hfe-nav-menu__layout-vertical li.hfe-has-submenu .elementor-button-wrapper,
-.rtl .hfe-nav-menu__align-left .hfe-nav-menu__layout-vertical li.hfe-has-submenu .elementor-button-wrapper,
-.hfe-nav-menu__align-right .hfe-nav-menu__layout-vertical li.elementor-button-wrapper,
-.rtl .hfe-nav-menu__align-left .hfe-nav-menu__layout-vertical li.elementor-button-wrapper{
+.hfe-nav-menu__align-right .hfe-nav-menu__layout-vertical li.hfe-has-submenu .hfe-button-wrapper,
+.rtl .hfe-nav-menu__align-left .hfe-nav-menu__layout-vertical li.hfe-has-submenu .hfe-button-wrapper,
+.hfe-nav-menu__align-right .hfe-nav-menu__layout-vertical li.hfe-button-wrapper,
+.rtl .hfe-nav-menu__align-left .hfe-nav-menu__layout-vertical li.hfe-button-wrapper{
     text-align: right;
 }
-.hfe-nav-menu__align-left .hfe-nav-menu__layout-vertical li.hfe-has-submenu .elementor-button-wrapper,
-.rtl .hfe-nav-menu__align-right .hfe-nav-menu__layout-vertical li.hfe-has-submenu .elementor-button-wrapper,
-.hfe-nav-menu__align-left .hfe-nav-menu__layout-vertical li.elementor-button-wrapper,
-.rtl .hfe-nav-menu__align-right .hfe-nav-menu__layout-vertical li.elementor-button-wrapper{
+.hfe-nav-menu__align-left .hfe-nav-menu__layout-vertical li.hfe-has-submenu .hfe-button-wrapper,
+.rtl .hfe-nav-menu__align-right .hfe-nav-menu__layout-vertical li.hfe-has-submenu .hfe-button-wrapper,
+.hfe-nav-menu__align-left .hfe-nav-menu__layout-vertical li.hfe-button-wrapper,
+.rtl .hfe-nav-menu__align-right .hfe-nav-menu__layout-vertical li.hfe-button-wrapper{
     text-align: left;
 }
-.hfe-nav-menu__align-center .hfe-nav-menu__layout-vertical li.hfe-has-submenu .elementor-button-wrapper,
-.hfe-nav-menu__align-center .hfe-nav-menu__layout-vertical li.elementor-button-wrapper{
+.hfe-nav-menu__align-center .hfe-nav-menu__layout-vertical li.hfe-has-submenu .hfe-button-wrapper,
+.hfe-nav-menu__align-center .hfe-nav-menu__layout-vertical li.hfe-button-wrapper{
     text-align: center;
 }
 .hfe-nav-menu__align-left .hfe-nav-menu {
@@ -1119,7 +1237,7 @@ div.hfe-nav-menu,
     display: inline-flex;
 } 
 
-.hfe-nav-menu li.elementor-button-wrapper {
+.hfe-nav-menu li.hfe-button-wrapper {
     align-self: center;
 }
 
@@ -1312,7 +1430,7 @@ div.hfe-nav-menu,
 
     .hfe-nav-menu__breakpoint-tablet.hfe-nav-menu__align-justify .hfe-nav-menu__layout-horizontal .hfe-nav-menu li a.hfe-menu-item,
     .hfe-nav-menu__breakpoint-tablet.hfe-nav-menu__align-justify .hfe-nav-menu__layout-horizontal .hfe-nav-menu li a.hfe-sub-menu-item,
-    .hfe-nav-menu__breakpoint-tablet.hfe-nav-menu__align-justify .hfe-nav-menu__layout-horizontal .hfe-nav-menu li.elementor-button-wrapper {
+    .hfe-nav-menu__breakpoint-tablet.hfe-nav-menu__align-justify .hfe-nav-menu__layout-horizontal .hfe-nav-menu li.hfe-button-wrapper {
         -webkit-box-pack: justify;
         -webkit-justify-content: space-between;
         -moz-box-pack: justify;
@@ -1326,7 +1444,7 @@ div.hfe-nav-menu,
 
     .hfe-nav-menu__breakpoint-mobile.hfe-nav-menu__align-justify .hfe-nav-menu__layout-horizontal .hfe-nav-menu li a.hfe-menu-item,
     .hfe-nav-menu__breakpoint-mobile.hfe-nav-menu__align-justify .hfe-nav-menu__layout-horizontal .hfe-nav-menu li a.hfe-sub-menu-item 
-    .hfe-nav-menu__breakpoint-tablet.hfe-nav-menu__align-justify .hfe-nav-menu__layout-horizontal .hfe-nav-menu li.elementor-button-wrapper { 
+    .hfe-nav-menu__breakpoint-tablet.hfe-nav-menu__align-justify .hfe-nav-menu__layout-horizontal .hfe-nav-menu li.hfe-button-wrapper { 
         -webkit-box-pack: justify;
         -webkit-justify-content: space-between;
         -moz-box-pack: justify;
@@ -1601,6 +1719,13 @@ div.hfe-nav-menu,
 
 .hfe-icon {
     display: inline-block;
+    vertical-align: middle; /* Alignment of icon */
+}
+
+/* Icon Svg */
+.hfe-icon svg {
+    width: 1em;
+    height: 1em;
 }
 
 /* Menu Cart CSS */
@@ -1753,7 +1878,7 @@ div.hfe-nav-menu,
     order: 15;
 }
 
-.hfe-menu-cart__toggle.elementor-button-wrapper .elementor-button {
+.hfe-menu-cart__toggle.hfe-button-wrapper .elementor-button {
     color:#4d4848;
 }
 
@@ -1943,4 +2068,224 @@ div.hfe-nav-menu,
     width:100%;
     opacity:1;
     height:100%;
+}
+
+/* Scroll to top CSS */
+.hfe-scroll-to-top-wrap.hfe-scroll-to-top-hide {
+    display: none;
+}
+
+.hfe-scroll-to-top-wrap.edit-mode,
+.hfe-scroll-to-top-wrap.single-page-off {
+    display: none !important;
+}
+
+.hfe-scroll-to-top-button {
+    position:fixed;
+    right:15px;
+    bottom:15px;
+    z-index:9999;
+    display:-webkit-box;
+    display:-webkit-flex;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-align:center;
+    -webkit-align-items:center;
+    align-items:center;
+    -ms-flex-align:center;
+    -webkit-box-pack:center;
+    -ms-flex-pack:center;
+    -webkit-justify-content:center;
+    justify-content:center;
+    width:50px;
+    height:50px;
+    border-radius:50px;
+    background-color:#000000;
+    color:#fff;
+    text-align:center;
+    opacity:1;
+    cursor:pointer;
+    -webkit-transition:all .3s;
+    transition:all .3s;
+}
+
+.hfe-scroll-to-top-button i {
+    color:#fff;
+    font-size:16px;
+}
+/* Breadcrumbs CSS */
+
+ul.hfe-breadcrumbs {
+    display:block;
+    margin:0;
+    padding:0;
+    list-style:none
+}
+
+ul.hfe-breadcrumbs li {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+ul.hfe-breadcrumbs li:last-child {
+    margin:0;
+}
+
+ul.hfe-breadcrumbs li a,
+ul.hfe-breadcrumbs li span.hfe-breadcrumbs-separator-icon,
+ul.hfe-breadcrumbs li span.hfe-breadcrumbs-text{
+    display:block;
+}
+
+ul.hfe-breadcrumbs li span.hfe-breadcrumbs-text{
+    -webkit-transition:all .4s;
+    transition:all .4s;
+}
+
+span.hfe-breadcrumbs-home-icon{
+    margin-right:10px;
+    align-content: center;
+}
+
+.hfe-breadcrumbs-first a {
+    align-content: center;
+}
+
+.hfe-breadcrumbs-separator-icon i, 
+.hfe-breadcrumbs-separator-icon svg,
+.hfe-breadcrumbs-home-icon i,
+.hfe-breadcrumbs-home-icon svg {
+    width: 1em;
+    height: 1em;
+    position: relative;
+    display: block;
+}
+
+ul.hfe-breadcrumbs-show-home li.hfe-breadcrumbs-first {
+    display: inline-flex;
+}
+
+/* Post Info CSS */
+
+ul.hfe-post-info-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.hfe-post-info-inline.hfe-post-info-items {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+li.hfe-post-info-item {
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+li.hfe-post-info-item,
+li.hfe-post-info-item > a {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-align: center;
+}
+
+.hfe-post-info-inline.hfe-post-info-items .hfe-post-info-item {
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.hfe-post-info-inline .hfe-post-info-item:not(:last-child):after {
+    position: relative;
+    right: -8px;
+}
+
+.hfe-post-info-inline.hfe-post-info-items {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.hfe-post-info-icon svg {
+    display: block;
+}
+
+.hfe-post-info-layout-traditional .hfe-post-info-item:not(:last-child):after {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+}
+
+.hfe-post-info-layout-traditional .hfe-post-info-item:not(:last-child) {
+    position: relative;
+}
+
+
+/* Info Card CSS */
+.hfe-icon-wrap .hfe-icon svg {
+    height: 100%;
+    width: 100%;
+}
+body .elementor .hfe-button-wrapper a {
+    text-decoration: none;
+}
+.hfe-button-wrapper {
+    border-radius: 3px;
+}
+
+
+.hfe-reading-progress-bar{
+    height: 4px;
+}
+
+/* Basic Posts Widget CSS - Only essential structure, no styling */
+.hfe-posts-grid {
+    display: grid;
+}
+
+.hfe-post-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hfe-post-title a {
+    text-decoration: none;
+}
+.hfe-post-title {
+    margin-top: 0px;
+}
+.hfe-read-more {
+    text-decoration: none;
+}
+.hfe-post-meta {
+    font-size: 12px;
+    line-height: 1.3em;
+}
+.hfe-post-title {
+    font-size: 20px;
 }
