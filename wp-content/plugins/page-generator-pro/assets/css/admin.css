@@ -1,0 +1,309 @@
+/**
+* Content Groups
+*/
+body.post-type-page-generator-pro {
+  /**
+	 * Keywords for Title
+	 */ }
+  body.post-type-page-generator-pro #keywords-title {
+    min-width: 463px;
+    margin-right: 300px; }
+    body.post-type-page-generator-pro #keywords-title select {
+      float: right; }
+  body.post-type-page-generator-pro #poststuff {
+    /**
+		 * Metabox Padding
+		 */
+    /**
+		 * Permalink
+		 */
+    /**
+		 * Custom Fields
+		 */
+    /**
+		 * Publish Meta Box
+		 */
+    /**
+		 * Taxonomies
+		 */ }
+    body.post-type-page-generator-pro #poststuff div.inside {
+      margin: 0;
+      padding: 0; }
+    body.post-type-page-generator-pro #poststuff #edit-slug-box {
+      display: none !important; }
+    body.post-type-page-generator-pro #poststuff #custom-fields div.option div.left a {
+      text-decoration: none; }
+      body.post-type-page-generator-pro #poststuff #custom-fields div.option div.left a.move-custom-field {
+        position: absolute;
+        left: 0;
+        top: 55px;
+        cursor: move; }
+      body.post-type-page-generator-pro #poststuff #custom-fields div.option div.left a.delete-custom-field {
+        position: absolute;
+        right: 0;
+        top: 55px; }
+    body.post-type-page-generator-pro #poststuff #publishing-action {
+      float: left;
+      text-align: left; }
+      body.post-type-page-generator-pro #poststuff #publishing-action #submitpost {
+        text-align: left; }
+        body.post-type-page-generator-pro #poststuff #publishing-action #submitpost #minor-publishing {
+          display: none; }
+    body.post-type-page-generator-pro #poststuff #page-generator-pro-taxonomies div.tax-selection {
+      border: 1px solid #ccc; }
+      body.post-type-page-generator-pro #poststuff #page-generator-pro-taxonomies div.tax-selection input.widefat {
+        float: left;
+        border-bottom: none; }
+
+/**
+ * Term Groups
+ */
+body.taxonomy-page-generator-tax .wrap > #message {
+  margin: 5px 20px 15px 20px; }
+
+body.taxonomy-page-generator-tax form#edittag {
+  max-width: 100%; }
+  body.taxonomy-page-generator-tax form#edittag #postbox-container-1 div.inside {
+    margin: 0;
+    padding: 0; }
+  body.taxonomy-page-generator-tax form#edittag #postbox-container-2 .postbox {
+    margin: 0;
+    padding: 0; }
+    body.taxonomy-page-generator-tax form#edittag #postbox-container-2 .postbox table.form-table {
+      margin: 0;
+      clear: none; }
+  body.taxonomy-page-generator-tax form#edittag div.edit-tag-actions {
+    display: none; }
+
+/**
+* Generating Status in Tables
+*/
+.page-generator-pro-generating-spinner span.spinner {
+  visibility: visible;
+  float: left;
+  margin: 0 5px 0 0; }
+
+/**
+* Admin Menu
+*/
+li#toplevel_page_page-generator-keywords ul.wp-submenu li:nth-child(4) {
+  display: none; }
+
+li#toplevel_page_page-generator-pro ul.wp-submenu li:nth-child(7) {
+  display: none; }
+
+/**
+* Settings Header Icon
+*/
+body.wpzinc.page-generator div.wrap h1.wp-heading-inline,
+body.wpzinc.page-generator-pro div.wrap h1.wp-heading-inline {
+  background-image: url(/wp-content/plugins/page-generator-pro/assets/images/icons/logo.png);
+  background-position: 25px 50%;
+  background-repeat: no-repeat;
+  background-size: 32px 32px; }
+
+body.wpzinc.taxonomy-page-generator-tax div.wrap h1 {
+  background-image: url(/wp-content/plugins/page-generator-pro/assets/images/icons/logo.png);
+  background-position: 25px 50%;
+  background-repeat: no-repeat;
+  background-size: 32px 32px; }
+
+/**
+* Featured Image
+*/
+span.image img {
+  width: 100%;
+  height: auto; }
+
+/**
+* Keywords: WP_List_Table
+*/
+tr.no-items td {
+  text-align: center; }
+
+/**
+* TinyMCE Autocomplete
+*/
+ul.page-generator-pro-tinymce-autocomplete {
+  display: none;
+  background-color: #fcfcfc;
+  position: absolute;
+  z-index: 999999;
+  top: 0;
+  left: 0;
+  min-width: 260px;
+  max-width: 400px;
+  border: 1px solid #dfdfdf;
+  padding: 5px; }
+  ul.page-generator-pro-tinymce-autocomplete.displayed {
+    display: block; }
+  ul.page-generator-pro-tinymce-autocomplete li {
+    display: none;
+    margin: 0;
+    padding: 4px;
+    border: 1px solid #fcfcfc;
+    cursor: pointer; }
+    ul.page-generator-pro-tinymce-autocomplete li:hover {
+      border: 1px solid #dfdfdf;
+      background-color: #f5f5f5; }
+    ul.page-generator-pro-tinymce-autocomplete li.displayed {
+      display: block; }
+      ul.page-generator-pro-tinymce-autocomplete li.displayed:first-child {
+        border: 1px solid #333; }
+        ul.page-generator-pro-tinymce-autocomplete li.displayed:first-child:hover {
+          border: 1px solid #333; }
+
+/**
+* JS Overlay
+*/
+#page-generator-pro-overlay,
+#page-generator-overlay {
+  display: none;
+  position: fixed;
+  z-index: 99998;
+  top: 0;
+  left: 0;
+  opacity: 0.7;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000; }
+
+#page-generator-pro-progress,
+#page-generator-progress {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  top: 40vh;
+  left: 25vw;
+  width: 50vw;
+  height: 20vh;
+  box-sizing: border-box;
+  background-color: #f7f7f7;
+  padding: 20px; }
+  #page-generator-pro-progress h2,
+  #page-generator-progress h2 {
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    padding: 0; }
+    #page-generator-pro-progress h2 div.spinner,
+    #page-generator-progress h2 div.spinner {
+      visibility: visible; }
+  #page-generator-pro-progress p,
+  #page-generator-progress p {
+    margin: 0 0 20px 0;
+    padding: 0; }
+  #page-generator-pro-progress .notice,
+  #page-generator-progress .notice {
+    display: block;
+    margin: 0 0 20px 0;
+    padding: 10px; }
+    #page-generator-pro-progress .notice.warning,
+    #page-generator-progress .notice.warning {
+      border-left-color: orange; }
+    #page-generator-pro-progress .notice p,
+    #page-generator-progress .notice p {
+      margin: 0; }
+  #page-generator-pro-progress button.close,
+  #page-generator-progress button.close {
+    display: none; }
+
+/**
+* Generate: jQuery UI ProgressBar
+*/
+body.page-generator-pro_page_page-generator-pro-generate #progress-bar {
+  margin: 0 0 20px 0;
+  height: 30px;
+  border: 1px solid #ccc; }
+
+body.page-generator-pro_page_page-generator-pro-generate .ui-progressbar {
+  height: 2em;
+  text-align: left;
+  overflow: hidden; }
+
+body.page-generator-pro_page_page-generator-pro-generate .ui-progressbar .ui-progressbar-value {
+  margin: -1px;
+  height: 100%; }
+
+body.page-generator-pro_page_page-generator-pro-generate .ui-progressbar .ui-progressbar-overlay {
+  background: green;
+  height: 100%;
+  filter: alpha(opacity=25);
+  /* support: IE8 */
+  opacity: 0.25; }
+
+body.page-generator-pro_page_page-generator-pro-generate .ui-progressbar-indeterminate .ui-progressbar-value {
+  background-image: none; }
+
+body.page-generator-pro_page_page-generator-pro-generate .ui-widget {
+  font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+  font-size: 1.1em; }
+
+body.page-generator-pro_page_page-generator-pro-generate .ui-widget .ui-widget {
+  font-size: 1em; }
+
+body.page-generator-pro_page_page-generator-pro-generate .ui-widget input,
+body.page-generator-pro_page_page-generator-pro-generate .ui-widget select,
+body.page-generator-pro_page_page-generator-pro-generate .ui-widget textarea,
+body.page-generator-pro_page_page-generator-pro-generate .ui-widget button {
+  font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+  font-size: 1em; }
+
+body.page-generator-pro_page_page-generator-pro-generate .ui-widget-content {
+  border: 1px solid #dddddd;
+  background: #eeeeee;
+  color: #333333; }
+
+body.page-generator-pro_page_page-generator-pro-generate .ui-widget-content a {
+  color: #333333; }
+
+body.page-generator-pro_page_page-generator-pro-generate .ui-widget-header {
+  border: 1px solid #e78f08;
+  background: green;
+  color: #ffffff;
+  font-weight: bold; }
+
+body.page-generator-pro_page_page-generator-pro-generate .ui-widget-header a {
+  color: #ffffff; }
+
+/**
+* Generate: Log
+*/
+#log {
+  clear: both;
+  float: left;
+  width: 100%;
+  height: 300px;
+  overflow-y: scroll;
+  margin: 20px 0 20px 0;
+  font-family: 'Courier New';
+  font-size: 12px;
+  box-sizing: border-box;
+  border: 1px solid #ccc; }
+  #log ul {
+    clear: both;
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #fff; }
+    #log ul li {
+      clear: both;
+      float: left;
+      width: 100%;
+      margin: 0;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      box-sizing: border-box; }
+      #log ul li a {
+        color: green; }
+      #log ul li.error {
+        color: white;
+        background: red; }
+
+/**
+* Generate: Return Button
+*/
+.page-generator-pro-generate-return-button {
+  display: none !important; }
