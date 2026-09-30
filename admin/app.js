@@ -7,7 +7,6 @@ const state = {
   productPagination: { page: 1, pages: 1, total: 0, limit: 50 },
   productTotal: 0,
   productLastSyncedAt: null,
-  credentials: null,
   editingSlug: null,
   editingMode: 'education',
   currentView: 'dashboard',
@@ -15,10 +14,6 @@ const state = {
   contentSourceHtml: '',
 };
 
-const loginScreen = document.getElementById('login-screen');
-const appShell = document.getElementById('app-shell');
-const loginForm = document.getElementById('login-form');
-const loginError = document.getElementById('login-error');
 const alertBox = document.getElementById('alert-box');
 const articlesTableBody = document.getElementById('articles-table-body');
 const articlesEmpty = document.getElementById('articles-empty');
@@ -29,12 +24,6 @@ const articleForm = document.getElementById('article-form');
 function slugify(text) {
   return String(text).toLowerCase().trim()
     .replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
-}
-function encodeCredentials(username, password) {
-  return btoa(`${username}:${password}`);
-}
-function authHeader() {
-  return state.credentials ? { Authorization: `Basic ${state.credentials}` } : {};
 }
 function showAlert(message, type = 'success') {
   alertBox.textContent = message;
@@ -398,12 +387,11 @@ async function uploadImage(file) {
   formData.append('image', compressed, compressed.name || 'gambar.jpg');
   let response;
   try {
-    response = await fetch('/api/upload', { method: 'POST', headers: authHeader(), body: formData });
+    response = await fetch('/api/upload', { method: 'POST', body: formData });
   } catch {
     throw new Error('Tidak bisa menghubungi server upload. Restart npm run dev, lalu hard refresh /admin.');
   }
   const data = await response.json().catch(() => ({}));
-  if (response.status === 401) throw new Error('Sesi login habis. Login admin lagi, lalu upload ulang.');
   if (response.status === 404) throw new Error('API upload belum aktif. Stop server lama, jalankan ulang npm run dev, hard refresh /admin.');
   if (!response.ok) throw new Error(data.error || `Upload gagal (HTTP ${response.status}).`);
   return data;
@@ -505,7 +493,7 @@ function setView(view) {
 async function api(path, options = {}) {
   const response = await fetch(path, {
     ...options,
-    headers: { 'Content-Type': 'application/json', ...authHeader(), ...(options.headers || {}) },
+    headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
   });
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
@@ -707,45 +695,6 @@ async function importProductLibrary() {
   await loadProductArticles({ resetPage: true });
   showAlert(`${result.imported.toLocaleString('id-ID')} entri dari ${result.uniqueSlugs.toLocaleString('id-ID')} artikel unik terindeks.`);
 }
-function showApp() {
-  loginScreen.classList.add('hidden');
-  appShell.classList.remove('hidden');
-}
-function showLogin(message = '') {
-  state.credentials = null;
-  sessionStorage.removeItem('pb-admin-auth');
-  appShell.classList.add('hidden');
-  loginScreen.classList.remove('hidden');
-  loginError.textContent = message;
-  loginError.classList.toggle('hidden', !message);
-}
-
-loginForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  hideAlert();
-  state.credentials = encodeCredentials(
-    document.getElementById('username').value.trim(),
-    document.getElementById('password').value
-  );
-  try {
-    await api('/api/articles');
-    sessionStorage.setItem('pb-admin-auth', state.credentials);
-    showApp();
-    await loadArticles();
-    try {
-      await loadProductArticles();
-    } catch {
-      // Index belum ada — user bisa sinkronkan manual.
-    }
-    setView('dashboard');
-  } catch (error) {
-    state.credentials = null;
-    loginError.textContent = error.message;
-    loginError.classList.remove('hidden');
-  }
-});
-
-document.getElementById('logout-btn').addEventListener('click', () => showLogin());
 document.querySelectorAll('.nav-item[data-view]').forEach((button) => {
   button.addEventListener('click', (event) => {
     event.preventDefault();
@@ -1032,12 +981,7 @@ productTableBody?.addEventListener('click', async (event) => {
 });
 
 async function bootstrap() {
-  const saved = sessionStorage.getItem('pb-admin-auth');
-  if (!saved) return;
-  state.credentials = saved;
   try {
-    await api('/api/articles');
-    showApp();
     await loadArticles();
     try {
       await loadProductArticles();
@@ -1045,8 +989,8 @@ async function bootstrap() {
       // Index belum ada — user bisa sinkronkan manual.
     }
     setView('dashboard');
-  } catch {
-    showLogin();
+  } catch (error) {
+    showAlert(error.message, 'error');
   }
 }
 bootstrap();

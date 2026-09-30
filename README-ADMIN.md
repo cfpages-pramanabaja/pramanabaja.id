@@ -12,18 +12,14 @@ Semua file admin (`/admin`, `/server`, `/templates`, `/data`) **ikut di-push ke 
 npm install
 ```
 
-2. Buat file `.env` dari contoh:
+2. Buat file `.env` dari contoh (opsional, hanya jika port berbeda):
 
 ```bash
 cp .env.example .env
 ```
 
-3. Ubah kredensial admin di `.env`:
-
 ```env
 PORT=8000
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=password-tim-kalian
 ```
 
 > `.env` tidak di-commit. Setiap developer buat `.env` sendiri di lokal.

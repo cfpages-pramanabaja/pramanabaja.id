@@ -11,30 +11,7 @@
   <link rel="stylesheet" href="/admin/styles.css">
 </head>
 <body>
-  <section id="login-screen" class="auth">
-    <div class="auth-card">
-      <div class="auth-mark">
-        <img src="/wp-content/uploads/2024/08/Logo-Pramana-Baja-80x80.png" alt="">
-        PRAMANA Studio
-      </div>
-      <h1>Welcome back</h1>
-      <p>Publish artikel baru tanpa mengubah arsip yang sudah live.</p>
-      <form id="login-form">
-        <div id="login-error" class="toast toast-error hidden"></div>
-        <label class="field">
-          <span>Username</span>
-          <input id="username" autocomplete="username" placeholder="admin" required>
-        </label>
-        <label class="field">
-          <span>Password</span>
-          <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" required>
-        </label>
-        <button class="btn btn-solid" type="submit">Continue</button>
-      </form>
-    </div>
-  </section>
-
-  <div id="app-shell" class="app hidden">
+  <div id="app-shell" class="app">
     <aside class="sidebar">
       <div class="sidebar-brand">
         <img src="/wp-content/uploads/2024/08/Logo-Pramana-Baja-80x80.png" alt="PRAMANA">
@@ -66,7 +43,6 @@
         </div>
         <div class="bar-right">
           <a class="icon-btn" href="/artikel/" target="_blank" rel="noreferrer" title="Open /artikel/">↗</a>
-          <button id="logout-btn" class="btn btn-ghost btn-sm" type="button">Keluar</button>
           <button id="new-article-top-btn" class="btn btn-solid btn-sm" type="button">Artikel baru</button>
         </div>
       </header>

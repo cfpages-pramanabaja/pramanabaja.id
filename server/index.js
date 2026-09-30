@@ -10,7 +10,6 @@ const {
   deleteArticle,
   rebuildListing,
 } = require('./lib/articles');
-const { createAuthMiddleware } = require('./lib/auth');
 const { saveUploadedImage } = require('./lib/upload');
 const { importLegacyArticles } = require('./lib/import-legacy');
 const { importProductArticles } = require('./lib/import-product');
@@ -30,7 +29,6 @@ const {
 
 const app = express();
 const port = Number(process.env.PORT || 8000);
-const auth = createAuthMiddleware();
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 40 * 1024 * 1024 },
@@ -68,7 +66,7 @@ app.get('/api/health', (_req, res) => {
 app.get('/api/public/articles', sendPublicArticles);
 app.get('/api/public/articles', sendPublicArticles);
 
-app.get('/api/articles', auth, async (_req, res) => {
+app.get('/api/articles', async (_req, res) => {
   try {
     const articles = await listArticles();
     res.json({ articles });
@@ -77,7 +75,7 @@ app.get('/api/articles', auth, async (_req, res) => {
   }
 });
 
-app.get('/api/articles/:slug', auth, async (req, res) => {
+app.get('/api/articles/:slug', async (req, res) => {
   try {
     const article = await getArticle(req.params.slug);
     if (!article) {
@@ -89,7 +87,7 @@ app.get('/api/articles/:slug', auth, async (req, res) => {
   }
 });
 
-app.post('/api/articles', auth, async (req, res) => {
+app.post('/api/articles', async (req, res) => {
   try {
     const article = await createArticle(req.body);
     res.status(201).json({ article });
@@ -98,7 +96,7 @@ app.post('/api/articles', auth, async (req, res) => {
   }
 });
 
-app.put('/api/articles/:slug', auth, async (req, res) => {
+app.put('/api/articles/:slug', async (req, res) => {
   try {
     const article = await updateArticle(req.params.slug, req.body);
     res.json({ article });
@@ -108,7 +106,7 @@ app.put('/api/articles/:slug', auth, async (req, res) => {
   }
 });
 
-app.delete('/api/articles/:slug', auth, async (req, res) => {
+app.delete('/api/articles/:slug', async (req, res) => {
   try {
     const article = await deleteArticle(req.params.slug);
     res.json({ article });
@@ -118,7 +116,7 @@ app.delete('/api/articles/:slug', auth, async (req, res) => {
   }
 });
 
-app.post('/api/rebuild-listing', auth, async (_req, res) => {
+app.post('/api/rebuild-listing', async (_req, res) => {
   try {
     await rebuildListing();
     await notifyPublishScheduleChanged();
@@ -128,7 +126,7 @@ app.post('/api/rebuild-listing', auth, async (_req, res) => {
   }
 });
 
-app.post('/api/import-legacy', auth, async (_req, res) => {
+app.post('/api/import-legacy', async (_req, res) => {
   try {
     const result = await importLegacyArticles();
     res.json(result);
@@ -137,7 +135,7 @@ app.post('/api/import-legacy', auth, async (_req, res) => {
   }
 });
 
-app.get('/api/product-categories', auth, async (_req, res) => {
+app.get('/api/product-categories', async (_req, res) => {
   try {
     const data = await listProductArticles({ limit: 1, page: 1 });
     res.json({ groups: data.groups, total: data.total, lastSyncedAt: data.lastSyncedAt });
@@ -146,7 +144,7 @@ app.get('/api/product-categories', auth, async (_req, res) => {
   }
 });
 
-app.get('/api/product-articles', auth, async (req, res) => {
+app.get('/api/product-articles', async (req, res) => {
   try {
     const data = await listProductArticles({
       categoryId: req.query.category,
@@ -161,7 +159,7 @@ app.get('/api/product-articles', auth, async (req, res) => {
   }
 });
 
-app.get('/api/product-articles/:slug', auth, async (req, res) => {
+app.get('/api/product-articles/:slug', async (req, res) => {
   try {
     const article = await getProductArticle(req.params.slug);
     if (!article) {
@@ -173,7 +171,7 @@ app.get('/api/product-articles/:slug', auth, async (req, res) => {
   }
 });
 
-app.post('/api/product-articles', auth, async (req, res) => {
+app.post('/api/product-articles', async (req, res) => {
   try {
     const article = await createProductArticle(req.body);
     res.status(201).json({ article });
@@ -182,7 +180,7 @@ app.post('/api/product-articles', auth, async (req, res) => {
   }
 });
 
-app.put('/api/product-articles/:slug', auth, async (req, res) => {
+app.put('/api/product-articles/:slug', async (req, res) => {
   try {
     const article = await updateProductArticle(req.params.slug, req.body);
     res.json({ article });
@@ -192,7 +190,7 @@ app.put('/api/product-articles/:slug', auth, async (req, res) => {
   }
 });
 
-app.delete('/api/product-articles/:slug', auth, async (req, res) => {
+app.delete('/api/product-articles/:slug', async (req, res) => {
   try {
     const result = await deleteProductArticle(req.params.slug);
     res.json(result);
@@ -202,7 +200,7 @@ app.delete('/api/product-articles/:slug', auth, async (req, res) => {
   }
 });
 
-app.post('/api/import-product', auth, async (_req, res) => {
+app.post('/api/import-product', async (_req, res) => {
   try {
     const result = await importProductArticles();
     res.json(result);
@@ -211,7 +209,7 @@ app.post('/api/import-product', auth, async (_req, res) => {
   }
 });
 
-app.post('/api/upload', auth, upload.single('image'), async (req, res) => {
+app.post('/api/upload', upload.single('image'), async (req, res) => {
   try {
     const saved = await saveUploadedImage(req.file);
     res.status(201).json(saved);
