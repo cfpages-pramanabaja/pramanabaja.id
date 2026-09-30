@@ -2,8 +2,8 @@ const fs = require('fs/promises');
 const path = require('path');
 const { ROOT } = require('./paths');
 const { escapeHtml } = require('./utils');
-const { isPublished } = require('./publish');
 const { getAllCategories } = require('./product-categories');
+const { publishAttr, ensureScheduleScript, ensureArticleSchedule } = require('./static-schedule');
 
 const START_MARKER = '<!-- PB_ADMIN_PRODUCTS_START -->';
 const END_MARKER = '<!-- PB_ADMIN_PRODUCTS_END -->';
@@ -18,7 +18,7 @@ function generateProductCard(article, category) {
   const categoryClass = escapeHtml(category.listingDir);
   const categoryLabel = escapeHtml(category.label);
 
-  return `<div class="rt-col-md-3 rt-col-sm-6 rt-col-xs-12 default rt-grid-item" data-id="${dataId}" data-pb-admin="true">
+  return `<div class="rt-col-md-3 rt-col-sm-6 rt-col-xs-12 default rt-grid-item" data-id="${dataId}" data-pb-admin="true"${publishAttr(article)}>
 	<div class="rt-holder tpg-post-holder ">
 		<div class="rt-detail rt-el-content-wrapper">
 			<div class="rt-img-holder tpg-el-image-wrap has-thumbnail">
@@ -53,8 +53,8 @@ function insertMarkers(html) {
 }
 
 async function syncProductListings(articles) {
-  const published = (Array.isArray(articles) ? articles : []).filter(
-    (article) => article && article.source === 'admin' && article.slug && article.title && isPublished(article)
+  const adminArticles = (Array.isArray(articles) ? articles : []).filter(
+    (article) => article && article.source === 'admin' && article.slug && article.title
   );
 
   for (const category of getAllCategories()) {
@@ -67,7 +67,7 @@ async function syncProductListings(articles) {
       throw error;
     }
 
-    const cards = published
+    const cards = adminArticles
       .filter((article) => article.categoryId === category.id)
       .sort((a, b) => new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime())
       .map((article) => generateProductCard(article, category))
@@ -78,6 +78,11 @@ async function syncProductListings(articles) {
     const replaced = replaceBetween(html, START_MARKER, END_MARKER, cards);
     if (!replaced) continue;
     await fs.writeFile(file, replaced, 'utf8');
+    await ensureScheduleScript(file);
+  }
+
+  for (const article of adminArticles) {
+    await ensureArticleSchedule(article.slug, article.publishedAt);
   }
 }
 

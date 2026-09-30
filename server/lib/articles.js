@@ -5,7 +5,6 @@ const { generateArticleHtml, generateListingHtml } = require('./generator');
 const { syncArtikelPage } = require('./artikel-sync');
 const { articleHtmlPath, MANAGED_LISTING_DIR, MANAGED_LISTING_FILE } = require('./paths');
 const { slugify, stripHtml, truncate, toIsoDate } = require('./utils');
-const { filterPublished } = require('./publish');
 const { notifyPublishScheduleChanged } = require('./schedule');
 
 function createId() {
@@ -66,7 +65,7 @@ async function removeArticleFile(slug) {
 
 async function rebuildListing() {
   const articles = await readArticles();
-  const visible = filterPublished(articles.filter((item) => item.managed));
+  const visible = articles.filter((item) => item.managed);
   const html = generateListingHtml(visible);
   await fs.mkdir(MANAGED_LISTING_DIR, { recursive: true });
   await fs.writeFile(MANAGED_LISTING_FILE, html, 'utf8');

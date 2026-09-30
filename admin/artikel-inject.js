@@ -8,6 +8,7 @@
     wrap.className = 'rt-col-md-12 rt-col-sm-12 rt-col-xs-12 tpg-even rt-list-item rt-grid-item';
     wrap.setAttribute('data-id', `pb-${article.slug}`);
     wrap.setAttribute('data-pb-admin', 'true');
+    if (article.publishedAt) wrap.setAttribute('data-pb-publish', article.publishedAt);
     wrap.innerHTML = `
       <div class="rt-holder tpg-post-holder">
         <div class="rt-detail rt-el-content-wrapper">

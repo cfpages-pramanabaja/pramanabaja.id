@@ -22,7 +22,6 @@ const {
   deleteProductArticle,
 } = require('./lib/product-articles');
 const { ROOT, ADMIN_DIR } = require('./lib/paths');
-const { isPublished } = require('./lib/publish');
 const {
   initScheduleWatcher,
   createPublishGuardMiddleware,
@@ -44,7 +43,7 @@ function sendPublicArticles(req, res) {
     .then((articles) => {
       res.json({
         articles: articles
-          .filter((article) => article.source !== 'imported' && isPublished(article))
+          .filter((article) => article.source !== 'imported')
           .map((article) => ({
             slug: article.slug,
             title: article.title,

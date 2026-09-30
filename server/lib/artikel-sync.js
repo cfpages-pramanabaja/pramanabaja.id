@@ -1,7 +1,7 @@
 const fs = require('fs/promises');
 const { ROOT } = require('./paths');
 const { escapeHtml } = require('./utils');
-const { isPublished } = require('./publish');
+const { publishAttr, ensureScheduleScript, ensureArticleSchedule } = require('./static-schedule');
 
 const ARTIKEL_PAGE = `${ROOT}/artikel/index.html`;
 const START_MARKER = '<!-- PB_ADMIN_ARTICLES_START -->';
@@ -10,7 +10,7 @@ const SCRIPT_MARKER = '<!-- PB_ADMIN_ARTICLES_SCRIPT -->';
 const STYLE_MARKER = '<!-- PB_ADMIN_ARTICLES_STYLE -->';
 
 function isAdminArticle(article) {
-  return article && article.source !== 'imported' && article.slug && article.title && isPublished(article);
+  return article && article.source !== 'imported' && article.slug && article.title;
 }
 
 function generateArtikelListItem(article) {
@@ -23,7 +23,7 @@ function generateArtikelListItem(article) {
     : '/wp-content/uploads/2024/08/Logo-Pramana-Baja-80x80.png';
 
   return `
-<div class="rt-col-md-12 rt-col-sm-12 rt-col-xs-12 tpg-even rt-list-item rt-grid-item" data-id="${dataId}" data-pb-admin="true">
+<div class="rt-col-md-12 rt-col-sm-12 rt-col-xs-12 tpg-even rt-list-item rt-grid-item" data-id="${dataId}" data-pb-admin="true"${publishAttr(article)}>
 	<div class="rt-holder tpg-post-holder ">
 		<div class="rt-detail rt-el-content-wrapper">
 			<div class="rt-img-holder tpg-el-image-wrap has-thumbnail">
@@ -112,6 +112,10 @@ async function syncArtikelPage(articles) {
 
   html = ensureInjectScript(replaced);
   await fs.writeFile(ARTIKEL_PAGE, html, 'utf8');
+  await ensureScheduleScript(ARTIKEL_PAGE);
+  for (const article of adminArticles) {
+    await ensureArticleSchedule(article.slug, article.publishedAt);
+  }
 }
 
 module.exports = {
