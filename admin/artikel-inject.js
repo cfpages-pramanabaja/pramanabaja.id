@@ -8,7 +8,11 @@
     wrap.className = 'rt-col-md-12 rt-col-sm-12 rt-col-xs-12 tpg-even rt-list-item rt-grid-item';
     wrap.setAttribute('data-id', `pb-${article.slug}`);
     wrap.setAttribute('data-pb-admin', 'true');
-    if (article.publishedAt) wrap.setAttribute('data-pb-publish', article.publishedAt);
+    if (article.publishedAt) {
+      wrap.setAttribute('data-pb-publish', article.publishedAt);
+      const when = new Date(article.publishedAt).getTime();
+      if (Number.isNaN(when) || when <= Date.now()) wrap.setAttribute('data-pb-live', '');
+    }
     wrap.innerHTML = `
       <div class="rt-holder tpg-post-holder">
         <div class="rt-detail rt-el-content-wrapper">
@@ -37,6 +41,7 @@
   async function run() {
     const list = document.querySelector(LIST_SELECTOR);
     if (!list) return;
+    if (list.querySelector('[data-pb-admin="true"]')) return;
 
     const response = await fetch('/api/public/articles');
     if (!response.ok) return;
